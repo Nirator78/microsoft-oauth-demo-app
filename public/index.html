@@ -1,0 +1,44 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Microsoft OAuth Login Demo App</title>
+  <link href='https://fonts.googleapis.com/css?family=ABeeZee' rel='stylesheet'>
+  <style>
+    body { font-family: 'ABeeZee'; }
+  </style>
+</head>
+
+<body>
+  <a id="link">
+    <button>Login with Microsoft</button>
+  </a>
+  <div id="user-info-wrapper">
+    <p></p><p></p><p></p><p></p>
+  </div>
+  <script type="text/javascript">
+    const urlParams = new URLSearchParams(window.location.search)
+    if (urlParams.get('id')) {
+      document.querySelector('#link').style.display = 'none'
+      document.querySelectorAll('p')[0].innerHTML = `Hi, ${urlParams.get('givenName')}!`
+      document.querySelectorAll('p')[1].innerHTML = `Full name: ${urlParams.get('displayName')}`
+      document.querySelectorAll('p')[2].innerHTML = `Email: ${urlParams.get('mail')}`
+      document.querySelectorAll('p')[3].innerHTML = `Id: ${urlParams.get('id')}`
+    } else {
+      document.querySelector('#user-info-wrapper').style.display = 'none'
+    }
+
+    async function getClientId() {
+      const redirectUri = 'http://localhost:3000/oauth2callback'
+      const scope = 'profile email openid'
+      const responseType = 'code'
+
+      const response = await fetch('clientId')
+      const json = await response.json()
+      document.querySelector('#link').href = `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=${json.clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}&response_mode=query`
+    }
+    getClientId()
+  </script>
+</body>
+</html>
