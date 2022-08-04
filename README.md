@@ -17,4 +17,5 @@ Details on obtaining `CLIENT_ID` and `CLIENT_SECRET` are in the [documentation](
 
 ## Source
 [Tutorial Better Programming for Google](https://betterprogramming.pub/log-in-with-the-google-oauth-demo-app-9e7d0e801c29)
+<br/>
 [Github Tutorial Better Programming for Google](https://github.com/ionelh/google-oauth-demo-app)
